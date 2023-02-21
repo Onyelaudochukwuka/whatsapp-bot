@@ -10,8 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "qrcode-terminal": "^0.12.0",
-    "whatsapp-cloud-api": "^0.2.6",
-    "whatsapp-web.js": "^1.18.4"
+    "whatsapp-cloud-api": "^0.2.6"
   }
 }
