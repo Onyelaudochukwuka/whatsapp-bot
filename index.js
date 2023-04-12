@@ -1,9 +1,8 @@
 const wa = require('@open-wa/wa-automate');
 
 wa.create({
-  sessionId: "bot-session",
+  sessionId: "new-session",
   multiDevice: true, //required to enable multiDevice support
-  authTimeout: 60, //wait only 60 seconds to get a connection with the host account device
   blockCrashLogs: true,
   disableSpins: true,
   headless: true,
@@ -15,10 +14,13 @@ wa.create({
 
 function start(client) {
   client.onGlobalParticipantsChanged((participantChangedEvent) => console.log("participant changed for group", participantChangedEvent));
-
   client.onMessage(async message => {
+    console.log(message);
     if (message.body === 'Hi') {
       await client.sendText(message.from, '👋 Hello!');
+    }
+    if (message.body === '/tagall' && message.chatId) {
+      await client.tagEveryone(message.chatId, '| ♾️ FUMUDUKUS ♾️ UDOKA | \n Group Members tagged successfully', true)
     }
   });
 }
