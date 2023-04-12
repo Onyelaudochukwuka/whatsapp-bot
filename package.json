@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "whatsapp-cloud-api": "^0.2.6"
+    "@open-wa/wa-automate": "^4.64.2"
   }
 }

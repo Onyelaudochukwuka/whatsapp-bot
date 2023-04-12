@@ -1,40 +1,22 @@
-import { createBot } from 'whatsapp-cloud-api';
-// or if using require:
-// const { createBot } = require('whatsapp-cloud-api');
+const wa = require('@open-wa/wa-automate');
 
-(async () => {
-  try {
-    // replace the values below
-    const from = 'YOUR_WHATSAPP_PHONE_NUMBER_ID';
-    const token = 'YOUR_TEMPORARY_OR_PERMANENT_ACCESS_TOKEN';
-    const to = 'PHONE_NUMBER_OF_RECIPIENT';
-    const webhookVerifyToken = 'YOUR_WEBHOOK_VERIFICATION_TOKEN';
+wa.create({
+  sessionId: "bot-session",
+  multiDevice: true, //required to enable multiDevice support
+  authTimeout: 60, //wait only 60 seconds to get a connection with the host account device
+  blockCrashLogs: true,
+  disableSpins: true,
+  headless: true,
+  hostNotificationLang: 'PT_BR',
+  logConsole: false,
+  popup: true,
+  qrTimeout: 0, //0 means it will wait forever for you to scan the qr code
+}).then(client => start(client));
 
-    // Create a bot that can send messages
-    const bot = createBot(from, token);
-
-    // Send text message
-    const result = await bot.sendText(to, 'Hello world');
-
-    // Start express server to listen for incoming messages
-    // NOTE: See below under `Documentation/Tutorial` to learn how
-    // you can verify the webhook URL and make the server publicly available
-    await bot.startExpressServer({
-      webhookVerifyToken,
-    });
-
-    // Listen to ALL incoming messages
-    // NOTE: remember to always run: await bot.startExpressServer() first
-    bot.on('message', async (msg) => {
-      console.log(msg);
-
-      if (msg.type === 'text') {
-        await bot.sendText(msg.from, 'Received your text message!');
-      } else if (msg.type === 'image') {
-        await bot.sendText(msg.from, 'Received your image!');
-      }
-    });
-  } catch (err) {
-    console.log(err);
-  }
-})();
+function start(client) {
+  client.onMessage(async message => {
+    if (message.body === 'Hi') {
+      await client.sendText(message.from, '👋 Hello!');
+    }
+  });
+}
