@@ -15,6 +15,7 @@ wa.create({
 
 function start(client) {
   client.onGlobalParticipantsChanged((participantChangedEvent) => console.log("participant changed for group", participantChangedEvent));
+
   client.onMessage(async message => {
     if (message.body === 'Hi') {
       await client.sendText(message.from, '👋 Hello!');
