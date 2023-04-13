@@ -1,5 +1,4 @@
 const wa = require('@open-wa/wa-automate');
-
 wa.create({
   sessionId: "new-session",
   multiDevice: true, //required to enable multiDevice support
