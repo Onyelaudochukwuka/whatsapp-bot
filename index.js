@@ -20,7 +20,9 @@ function start(client) {
       await client.sendText(message.from, '👋 Hello!');
     }
     if (message.body === '.tagall') {
-      await client.tagEveryone(message.chatId, '| ♾️ FUMUDUKUS ♾️ UDOKA | \n Group Members tagged successfully', true)
+      const members = await client.getGroupMembersId(message.chatId);
+      console.log(members);
+      await client.sendReplyWithMentions(message.from, '| ♾️ FUMUDUKUS ♾️ UDOKA | \n Group Members tagged successfully', members)
     }
   });
 }
