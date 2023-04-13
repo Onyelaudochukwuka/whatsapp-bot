@@ -22,7 +22,7 @@ function start(client) {
     if (message.body === '.tagall') {
       const members = await client.getGroupMembersId(message.chatId);
       console.log(members);
-      await client.sendReplyWithMentions(message.from, '| ♾️ FUMUDUKUS ♾️ UDOKA | \n Group Members tagged successfully', members)
+      await client.sendReplyWithMentions(message.chatId, '| ♾️ FUMUDUKUS ♾️ UDOKA | \n Group Members tagged successfully', message.from,members)
     }
   });
 }
